@@ -5224,3 +5224,7 @@ alias net-pf-21 rds
 alias rtnl-link-lowpan ieee802154_6lowpan
 alias net-pf-36 ieee802154_socket
 alias vport-type-3 vport_gre
+alias usb:v350Bp9106d*dc*dsc*dp*icFFiscFFipFFin* zt9101_ztopmac_usb
+alias usb:v350Bp9086d*dc*dsc*dp*icFFiscFFipFFin* zt9101_ztopmac_usb
+alias usb:v2310p9086d*dc*dsc*dp*icFFiscFFipFFin* zt9101_ztopmac_usb
+alias usb:v350Bp9101d*dc*dsc*dp*icFFiscFFipFFin* zt9101_ztopmac_usb

@@ -1,0 +1,44 @@
+diff --git a/ZT9101_android_V1.2.1800.20241115/platform/platform.mak b/ZT9101_android_V1.2.1800.20241115/platform/platform.mak
+--- a/ZT9101_android_V1.2.1800.20241115/platform/platform.mak
++++ b/ZT9101_android_V1.2.1800.20241115/platform/platform.mak
+@@ -41,6 +41,11 @@
+ CONFIG_PLATFORM_ARM_GP329 = y
+ endif
+ 
++# R36S / ArkOS clones (Rockchip RK3326, typically Linux 4.4.189)
++ifeq ($(HOST_PLAT), r36s)
++CONFIG_PLATFORM_ARM_R36S = y
++endif
++
+ ###################### Platform Related #######################
+ CONFIG_PLATFORM_I386_PC ?= n
+ CONFIG_PLATFORM_ARM_tiny4412 ?= n
+@@ -52,6 +57,7 @@
+ CONFIG_PLATFORM_ARM_nuc980_iot ?= n
+ CONFIG_PLATFORM_ARM_FH8626 ?= n
+ CONFIG_PLATFORM_ARM_GP329 ?= n
++CONFIG_PLATFORM_ARM_R36S ?= n
+ 
+ ##################### Platform Configure ######################
+ ifeq ($(CONFIG_PLATFORM_I386_PC), y)
+@@ -139,3 +145,20 @@
+ CROSS_COMPILE :=/usr/local/armv5-eabi--musl--stable-2018.02-2/bin/arm-buildroot-linux-musleabi-
+ KSRC ?= /home/lexin/gp329xxx_linux/sdk/os/linux-4.4.138
+ endif
++
++# Native build on the handheld (arkos4clone / ArkOS), or cross-build with
++# ARCH/CROSS_COMPILE/KSRC/KVER overridden from the command line / Docker.
++# RK3326 CFW uses aarch64 (see: Linux version 4.4.189 ... aarch64).
++ifeq ($(CONFIG_PLATFORM_ARM_R36S), y)
++ccflags-y += -DCONFIG_LITTLE_ENDIAN
++ARCH ?= arm64
++CROSS_COMPILE ?=
++KVER ?= $(shell uname -r 2>/dev/null)
++ifeq ($(KVER),)
++KVER := 4.4.189
++endif
++KSRC ?= /lib/modules/$(KVER)/build
++MODDESTDIR := /lib/modules/$(KVER)/kernel/drivers/net/wireless/zt9101/
++INSTALL_PREFIX :=
++endif
++

@@ -577,3 +577,4 @@ kernel/lib/ts_kmp.ko:
 kernel/lib/ts_bm.ko:
 kernel/lib/ts_fsm.ko:
 kernel/lib/cordic.ko:
+kernel/drivers/net/wireless/zt9101/zt9101_ztopmac_usb.ko:
